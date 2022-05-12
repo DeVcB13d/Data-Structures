@@ -49,10 +49,12 @@ class Array
             }
             
         }
-        int Fibbonacci_Search(int ITEM)
-        {
-
-        }
+        int Fibbonacci_Search(int ITEM);
+        Array Bubble_sort();
+        Array Insertion_sort();
+        Array Merge(Array A1,int LBA,Array A2,int LBB,int LBC);
+        Array Merge_pass();
+        Array Merge_Sort();
 };
 
 int main()
