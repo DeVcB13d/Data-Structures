@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int Linear_Search(int DATA[100],int N,int ITEM)
+int Linear_Search(int* DATA,int N,int ITEM)
 {
     int LOC = -1;
     for(int i=0;i<N;i++)
