@@ -1,4 +1,5 @@
 #include<iostream>
+#include<cmath>
 using namespace std;
 
 class Array
@@ -41,12 +42,12 @@ class Array
         int interpolation_search(int ITEM);
         int Fibbonacci_Search(int ITEM);
         void Bubble_sort();
+        void Radix_sort();
         Array Insertion_sort();
         Array Merge(Array A1,int LBA,Array A2,int LBB,int LBC);
         Array Merge_pass();
         Array Merge_Sort();
 };
-
 int Array::interpolation_search(int ITEM)
 {
     int LOC = -1;
@@ -125,7 +126,6 @@ int Array::Linear_Search(int ITEM){
         return -1;
     }
 }
-
 int Array::Binary_Search(int ITEM){
     //For binary search we assume to have a sorted array
     int BEG = 0;int END = N-1;
@@ -149,7 +149,6 @@ int Array::Binary_Search(int ITEM){
     else 
         return -1;
 }
-
 int Array::Ternary_Search(int ITEM)
 {
     int BEG = 0;int END = N;
@@ -187,13 +186,12 @@ int Array::Ternary_Search(int ITEM)
         return LOC;
     }
 }
-
 void Array::Bubble_sort()
 {
     int LOOPSTEPS = 0 ;
     for(int i = 0;i<N-1;i++)
     {
-        for(int j=i;j<N;j++)
+        for(int j = 0;j <= N;j++)
         {
             LOOPSTEPS++;
             if(DATA[j]>DATA[j+1])
@@ -209,13 +207,45 @@ void Array::Bubble_sort()
     }
     cout << "LOOP EXECUTED : " << LOOPSTEPS << endl;
 }
-
+void Array::Radix_sort()
+{
+    int MAX = DATA[0];
+    for(int i=0;i<N;i++)
+    {
+        if (DATA[i]>MAX)
+        {
+            MAX = DATA[i];
+        }
+    }
+    int Ndigits = 0;
+    int Mtemp = MAX;
+    while (Mtemp != 0)
+    {
+        for(int i=0;i<N;i++)
+        {
+            int P = pow(10,Ndigits+1);
+            int D1 = DATA[i]%P;
+            int D2 = DATA[i+1]%P;
+            if (D1>D2)
+            {
+                int Temp = DATA[i];
+                DATA[i] = DATA[i+1];
+                DATA[i+1] = Temp;
+            }
+        }
+        cout << "PASS " << Ndigits+1 << ": ";
+        cout << *this;
+        Ndigits++;
+        Mtemp/=10;
+    }
+    cout << *this;
+}
 int main()
 {
     //int D1[6] = {0,1,3,4,5,6};
     int D2[20] = {10,13,15,26,28,50,56,88,94,127,154,356,480,567,689,780,850,956,995};
-    int D3[10] = {10,9,8,7,6,5,4,3,2,1};
-    Array A3(D3,10);
+    int D3[4] = {5,2,3,1};
+    Array A3(D3,4);
     cout << A3 ;
     A3.Bubble_sort();
     cout << A3;
