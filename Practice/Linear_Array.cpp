@@ -48,6 +48,7 @@ class Array
         Array Merge_pass();
         Array Merge_Sort();
 };
+
 int Array::interpolation_search(int ITEM)
 {
     int LOC = -1;
