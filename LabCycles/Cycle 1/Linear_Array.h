@@ -62,3 +62,13 @@ void input_array(int &size,int* arr,int* elems)
         cin >> arr[i];
     }
 }
+
+void display(int* DATA,int N)
+{
+    cout << "{";
+    for (int i = 0 ; i < N ; i++)
+    {
+        cout << DATA[i] << ",";
+    }
+    cout << "}\n";
+}
