@@ -20,26 +20,6 @@ String::String()
     STR = new char[LEN];
 }
 
-String::String(char* str,int len)
-{
-    LEN = len;
-    STR = new char [LEN];
-    for (int i = 0 ; i < len ; i++)
-    {
-        STR[i] = str[i];
-    }
-    STR[LEN+1] = '0';
-}
-
-void String::showstring()
-{
-    for(int i = 0 ; i < LEN ; i++)
-    {
-        cout << STR[i];
-    }
-    cout << "\n";
-}
-
 void String::sub_insert(char* subs1,int sublen,int pos)
 {
     String tempstr(STR,LEN) ;
