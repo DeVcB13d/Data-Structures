@@ -11,7 +11,6 @@ void display(int* DATA,int N)
     cout << "}\n";
 }
 
-
 int maxdigits(int* arr,int len)
 {
     int max = arr[0] ; 
@@ -30,7 +29,6 @@ int maxdigits(int* arr,int len)
     return maxdigits ;
 }
 
-
 void copy(int *arr1,int *arr2,int len)
 {
     for(int i = 0 ; i < len ; i++)
@@ -42,6 +40,7 @@ void copy(int *arr1,int *arr2,int len)
 void radix_sort(int* arr,int len)
 {
     int M  = maxdigits(arr,len) ;
+    //cout << "M = " << M ;
     for(int p = 0 ; p < M ; p++)
     {
         int *tarr = new int[len];
@@ -55,19 +54,17 @@ void radix_sort(int* arr,int len)
                 int sd = (el/pr)%10;
                 if (sd == d)
                 {
-                    cout << sd << "," << d << "\n" ;
+                    //cout << sd << "," << d << "\n" ;
                     tarr[tptr] = el ;
-                    display(tarr,tptr);
                     tptr++;
                 }
             }
-            cout << "\n";
+            //display(tarr,tptr);
         }
-        copy(arr,tarr,len);
+        copy(tarr,arr,len);
         
     }
 }
-
 
 int main()
 {
@@ -79,10 +76,9 @@ int main()
     for(int i = 0 ; i < n ; i++){
         cin >> Arr[i];
     }
-    int exit = 1;
     cout << "Before Sorting : ";
     display(Arr,n);
-    radix_sort(Arr,n-1);
+    radix_sort(Arr,n);
     cout << "After sorting : ";
     display(Arr,n);
     return 0;

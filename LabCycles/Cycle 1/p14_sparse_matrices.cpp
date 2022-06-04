@@ -60,5 +60,5 @@ void SparseMatrix::T(SparseMatrix &X)
 
 int main()
 {
-    
+    SparseMatrix
 }
