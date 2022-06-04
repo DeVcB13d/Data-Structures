@@ -11,7 +11,7 @@ class SparseMatrix
         void Set_Sparse_Matrix();
         void display();
         friend SparseMatrix operator+(SparseMatrix,SparseMatrix);
-        SparseMatrix T();
+        void T(SparseMatrix&);
 };
 
 SparseMatrix::SparseMatrix(int N)
@@ -36,7 +36,29 @@ void SparseMatrix::Set_Sparse_Matrix()
     }
 }
 
-SparseMatrix SparseMatrix::T()
+void SparseMatrix::T(SparseMatrix &X)
 {
-    Spa
+    X.M[0][0] = this->M[0][1];
+    X.M[0][1] = this->M[0][0];
+    X.M[0][2] = this->M[0][2];
+    int k = 1;
+    int N = this->M[0][2];
+    for(int i = 0 ; i < M[0][1] ; i++)
+    {
+        for(int j = 0 ; j < N ; j++)
+        {
+            if (M[j][1] == i)
+            {
+                X.M[k][0] = i;
+                X.M[k][1] = M[j][0];
+                X.M[k][2] = M[j][2];
+                k++;
+            }
+        }
+    }
+}
+
+int main()
+{
+    
 }
