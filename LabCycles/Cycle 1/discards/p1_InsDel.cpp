@@ -3,13 +3,20 @@
 #include "Linear_Array.h"
 using namespace std;
 
-class Array : public Linear_Array
+class Array 
 {
+    int* DATA;
+    int N;
+    int MAXN;
     public:
-        Array():Linear_Array(){}
-        Array(int *D,int n):Linear_Array(D,n)
+        Array(int n,int maxn = 100)
         {
-            
+            N = n;
+            DATA = new int[100];
+            MAXN = 100;
+        }
+        void set_Data(int index,int D){
+            DATA[index] = D;
         }
         void Insert(int,int);
         int Delete(int);
@@ -26,34 +33,7 @@ void Array::display()
     cout << "}\n";
 }
 
-void Array::Insert(int K,int ITEM)
-{
-    //check if insertion is out of array bounds
-    if (K<=N){ 
-        //Store the current array in a temporary array
-        Array A2 = Array(DATA,N);
-        N=N+1;
-        //Creating an array with the new size 
-        DATA = new int [N];
-        for(int j = 0 ; j < K ; j++)
-        {
-            DATA[j] = A2.DATA[j];
-        }
-        //Inserting item at the Kth position
-        DATA[K] = ITEM;
-        int j = N;
-        //inserting remaining elements at their successive positions
-        while(j>=K)
-        {
-            DATA[j+1] = A2.DATA[j];
-            j--;
-        }
-    }
-    else
-    {
-        cout << "Out of index \n";
-    }
-}
+
 
 int Array::Delete(int K)
 {
