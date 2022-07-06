@@ -20,8 +20,6 @@ class Array
         int binary_search(int);
         int ternary_search(int);
         int interpolation_search(int);
-        int ternary_search(int);
-        int interpolation_search(int);
         int Fibbonacci_Search(int);
         void display();
 
@@ -51,9 +49,11 @@ void get_array(int m,Array &A)
 
 int Array::Linear_Search(int ITEM)
 {
+    int SearchSteps = 0;
     int LOC = -1;
     for(int i=0;i<N;i++)
     {
+        SearchSteps++;
         if (DATA[i]==ITEM)
         {
             LOC = i;
@@ -206,13 +206,88 @@ int Array::Fibbonacci_Search(int ITEM)
     return -1 ;
 }
 
-
+void result(int res,int el)
+{
+    if (res < 0)
+    {
+        cout << "Element " << el << " not found\n";
+    }
+    else
+    {
+        cout << "Element " << el << " found at " << res << endl; 
+    }
+}
 
 
 int main()
 {
     Array A1(100);
-    
+    int n;
+    cout << "Enter the number of elements : ";
+    cin >> n ;
+    get_array(n,A1);
     cout << "Menu : \n";
-    cout << "1. input"
+    cout << "1. Input a new list\n";
+    cout << "2. Linear search\n";
+    cout << "3. Binary Search\n";
+    cout << "4. Ternary search\n";
+    cout << "5. Interpolation search\n";
+    cout << "6. Fibbonacci search\n";
+    cout << "7. Exit\n";
+    int choice = 0;
+    while (choice != 7)
+    {
+        cout << "Choose an option : ";
+        cin >> choice ;
+        if (choice==1)
+        {
+            cout << "Enter the number of elements : ";
+            cin >> n ;
+            get_array(n,A1);
+        }
+        else if (choice==2)
+        {
+            int el;
+            cout << "Input element to search : ";cin>>el;
+            int res = A1.Linear_Search(el);
+            result(res,el);
+            cout << "Steps Taken : " << A1.SearchSteps << endl;
+        }
+        else if (choice==3)
+        {
+            int el;
+            cout << "Input element to search : ";cin>>el;
+            int res = A1.binary_search(el);
+            result(res,el);
+            cout << "Steps Taken : " << A1.SearchSteps << endl;
+        }
+        else if (choice==4)
+        {
+            int el;
+            cout << "Input element to search : ";cin>>el;
+            int res = A1.ternary_search(el);
+            result(res,el);
+            cout << "Steps Taken : " << A1.SearchSteps << endl;
+        }
+        else if (choice==5)
+        {
+            int el;
+            cout << "Input element to search : ";cin>>el;
+            int res = A1.interpolation_search(el);
+            result(res,el);
+            cout << "Steps Taken : " << A1.SearchSteps << endl;
+        }
+        else if (choice==6)
+        {
+            int el;
+            cout << "Input element to search : ";cin>>el;
+            int res = A1.Fibbonacci_Search(el);
+            result(res,el);
+            cout << "Steps Taken : " << A1.SearchSteps << endl;
+        }
+        else if (choice == 5)
+        {
+            cout << "Exiting program...\n";
+        }
+    }
 } 

@@ -1,4 +1,4 @@
-# LAB CYCLE 1 QUESTIONS :  
+# LAB CYCLE QUESTIONS :  
 
 # I. Array
 1. Inserting and deleting an element from an array
@@ -28,10 +28,17 @@
     * Merge 2 sorted linked lists
     * Deletion of an element 
 11. Insert and delete from Circular Header Linked List
-12. Insertion and Deletion from Doubly Linked List
+12. Searching,Insertion and Deletion from Doubly Linked List
 
 # III Stack and Queues
 
 13. PUSH and POP opertions on stack using :
     * Array Structure
     * Linked List
+
+
+# IV Trees
+1. Binary Search Tree : 
+    * Search
+    * Insertion
+    * Deletion
