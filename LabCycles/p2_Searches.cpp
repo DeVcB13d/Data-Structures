@@ -22,7 +22,6 @@ class Array
         int interpolation_search(int);
         int Fibbonacci_Search(int);
         void display();
-
 };
 
 void Array::display()
@@ -42,6 +41,7 @@ void get_array(int m,Array &A)
     int val ;
     for(int i = 0;i<A.N;i++)
     {
+        
         cin >> val ;
         A.set_Data(i,val);
     }

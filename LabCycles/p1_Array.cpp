@@ -10,9 +10,9 @@ class Array
     public:
         Array(int n,int maxn = 100){
             N = n;
-            DATA = new int[100];
-            MAXN = 100;
+            DATA = new int[N];
         }
+        Array(Array &A);
         void set_Data(int index,int D){
             DATA[index] = D;
         }
@@ -20,6 +20,14 @@ class Array
         int Delete(int);
         void display();
 };
+
+// Copy constructor
+Array::Array(Array &A){
+    DATA = new int[A.N];
+    for(int i = 0 ; i < A.N ; i++){
+        DATA[i] = A.DATA[i] ;
+    }
+}
 
 void Array::display()
 {
@@ -33,7 +41,7 @@ void Array::display()
 
 int Array::Delete(int K)
 {
-    //
+    // Delete an element in the given index
     if (N==0 || K < 0 || K > N){
         return NULL;
     }
@@ -41,37 +49,41 @@ int Array::Delete(int K)
     {
         int ret = DATA[K];
         // Assign the Next array value
-        for(int i = K;i++;i<N){
+        for(int i = K;i<N;i++){
             DATA[i] = DATA[i+1];
         }
         N--;
+        return ret;
     }
 }
 
-void Array::Insert(int ITEM,int K)
+// Dynamically insert ITEM at position K
+void Array::Insert(int K,int ITEM)
 {
-    // Insert DATA at position K
-    try
-    {
-        // If array Space exceeds MAXN throw an exception
-        if (N+1>=MAXN)
+    //check if insertion is out of array bounds
+    if (K<=N){ 
+        //Store the current array in a temporary array A2
+        Array A2(*this);
+        N=N+1;
+        //Creating an array with the new size 
+        DATA = new int [N];
+        for(int j = 0 ; j < K ; j++)
         {
-            throw __throw_overflow_error;
+            DATA[j] = A2.DATA[j];
         }
-        // In the case of index being out of range
-        if (K<0 || K>=N+1)
+        //Inserting item at the Kth position
+        DATA[K] = ITEM;
+        int j = N;
+        //inserting remaining elements at their successive positions
+        while(j>=K)
         {
-            throw __throw_out_of_range;
+            DATA[j+1] = A2.DATA[j];
+            j--;
         }
-        for(int i = N ; i < K ; i--)
-        {
-            DATA[i+1] = DATA[i];
-        }
-        DATA[K] = ITEM ; 
     }
-    catch(const std::exception& e)
+    else
     {
-        std::cerr << e.what() << '\n';
+        cout << "Out of index \n";
     }
 }
 
@@ -96,7 +108,7 @@ int main()
     get_array(len,A1);
     // MENU
     int choice = 0;
-    cout << "MENU : \n1. Insert\n2. Delete\n3. New Array\n4. Display\n5. Exit";
+    cout << "MENU : \n1. Insert\n2. Delete\n3. New Array\n4. Display\n5. Exit\n";
     while(choice < 5)
     {
         cout << "Choose an option : ";

@@ -43,9 +43,10 @@ class Linked_list
         void remove(int ITEM);
 };
 
+// To create a linked list by using user input
 void Linked_list::input_list(Node* Nptr,int num){
     // Inputting the Linked List
-    cout << "Enter N elements : " ;
+    cout << "Enter "<< num << " elements : " ;
     int el;
     for(int i = 0 ; i < num ; i++){
         cin >> el ;
@@ -60,6 +61,7 @@ void Linked_list::input_list(Node* Nptr,int num){
     }
 }
 
+// To Traverse and print elements in a Linked List
 void Linked_list::traverse(void)
 {
     // Set a pointer to the start
@@ -301,11 +303,30 @@ int main()
     }
     // Setting the pointer of last element as 0
     (*Nptr).set_link(0);
-    cout << "Enter an Element to insert : " ;cin >> el;
-    L1.insert(el);
-    L1.traverse();
-    cout << "Enter an element to delete : ";cin >> el;
-    L1.remove(el);
-    L1.traverse();
+    cout << "MENU : \n";
+    cout << "1. Insert\n";
+    cout << "2. Delete\n";
+    int choice = 0;
+    while(choice != 3)
+    {
+        cout << "Choose an option : ";
+        cin >> choice ;
+        if (choice == 1)
+        {
+            cout << "Enter an Element to insert : " ;cin >> el;
+            L1.insert(el);
+            L1.traverse();
+        }
+        else if (choice == 2)
+        {
+            cout << "Enter an element to delete : ";cin >> el;
+            L1.remove(el);
+            L1.traverse();
+        }
+        else if (choice == 3)
+        {
+            cout << "Exiting.......\n";
+        }
+    }
     return 0;
 }

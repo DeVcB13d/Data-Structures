@@ -4,6 +4,7 @@ using namespace std;
 
 class SparseMatrix
 {
+        // Number of Non Zero Entries
         int NonZero;
         int** M;
     public:
@@ -17,6 +18,8 @@ class SparseMatrix
 
 SparseMatrix::SparseMatrix(int N)
 {
+    // A Sparse matrix has 3 colums
+    // Rows depend on number of Non-Zero entries
     NonZero = N ;
     M = new int*[NonZero];
     for(int i = 0 ; i < NonZero ; i++)
@@ -25,8 +28,12 @@ SparseMatrix::SparseMatrix(int N)
     }
 }
 
+// To get the User input of the sparse matrix
 void SparseMatrix::Set_Sparse_Matrix()
 {
+    // The First input will be -
+    // ROW - COL - NONZERO
+    // Then input the entries of the matrix
     cout << "Enter the entries : \n";
     for(int r = 0 ; r < NonZero ; r++)
     {
@@ -37,6 +44,7 @@ void SparseMatrix::Set_Sparse_Matrix()
     }
 }
 
+// Method to print the sparse matrix
 void SparseMatrix::display()
 {
     for(int i = 0 ; i < NonZero ; i++)
@@ -49,16 +57,21 @@ void SparseMatrix::display()
     }
 }
 
+// To get the transpose of *this to a matrix X
 void SparseMatrix::T(SparseMatrix &X)
 {
+    // The Rows and cols of X are the reverse of M
     X.M[0][0] = this->M[0][1];
     X.M[0][1] = this->M[0][0];
+    // Non zero entries remain the same
     X.M[0][2] = this->M[0][2];
     int k = 1;
+    // N -> Non zero entries
     int N = this->M[0][2];
+    // Columns
     for(int i = 0 ; i < M[0][1] ; i++)
     {
-        for(int j = 0 ; j < N ; j++)
+        for(int j = 1 ; j < N ; j++)
         {
             if (M[j][1] == i)
             {
@@ -145,12 +158,16 @@ int main()
     S1.Set_Sparse_Matrix();
     SparseMatrix S2(len2);
     S2.Set_Sparse_Matrix();
-    cout << "S1  : \n";
-    S1.display();
-    cout << "S2  : \n";
-    S2.display();
+    // cout << "S1  : \n";
+    // S1.display();
+    // cout << "S2  : \n";
+    // S2.display();
     SparseMatrix S3 = S1 + S2 ;
+    cout << "S3  : \n";
     S3.display();
-
-
+    cout << "Transposes : \n";
+    SparseMatrix S4;
+    S1.T(S4);
+    S4.display();
+    return 0;
 }

@@ -42,7 +42,7 @@ int saddle_point(int M[tmax][tmax],int R,int C)
 
 int main()
 {
-    int mat[tmax][tmax] = {{1, 2, 3},{4, 5, 6},{7, 8, 9}} ;
+    int mat[tmax][tmax] = {{1,2,3},{4,5,6},{7,8,9}} ;
     int s_point = saddle_point(mat,3,3) ;
     if (s_point != -1)
     {

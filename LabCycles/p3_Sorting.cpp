@@ -115,6 +115,7 @@ void Array::display()
 void get_array(int m,Array &A)
 {
     A.N = m;
+    A.DATA = new int [A.N];
     cout << "Enter " << A.N << " elements : \n";
     int val ;
     for(int i = 0;i<A.N;i++)
