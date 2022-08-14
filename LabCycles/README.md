@@ -18,7 +18,7 @@
 6. Insertion of String, Deletion of string and Replacement of substring as each functions in a program
 7. Transpose and Addition for sparse matrices
 8. Finding saddle point
-9. Add 2 polynomials
+9. Add 2 polynomials using array
 
 # II Linked Lists
 10. Implementation of linked list - 
@@ -27,6 +27,7 @@
     * Insertion into sorted LL
     * Merge 2 sorted linked lists
     * Deletion of an element 
+11. Add 2 polynomials using LL
 11. Insert and delete from Circular Header Linked List
 12. Searching,Insertion and Deletion from Doubly Linked List
 
@@ -35,6 +36,7 @@
 13. PUSH and POP opertions on stack using :
     * Array Structure
     * Linked List
+14. Quick sort
 
 
 # IV Trees

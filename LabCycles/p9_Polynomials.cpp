@@ -1,10 +1,12 @@
 #include<iostream>
 using namespace std;
 
+// Addition of 2 polynomials using array
+
 class polynomial
 {
     // Array of coefficients
-    // int increasing power order of coefficient
+    // in tHe increasing power order of coefficient
     int* C; 
     int power;
     public:
@@ -14,7 +16,7 @@ class polynomial
             power = pow;
             // power + 1 constant
             C = new int [power+1];
-            for(int i = 0 ; i < pow ; i++)
+            for(int i = 0 ; i <= pow ; i++)
             {
                 C[i] = Arr[i];
             }
@@ -24,7 +26,7 @@ class polynomial
             power = P.power;
             // power + 1 constant
             C = new int [power+1];
-            for(int i = 0 ; i < power ; i++)
+            for(int i = 0 ; i <= power ; i++)
             {
                 C[i] = P.C[i];
             }
@@ -45,7 +47,7 @@ polynomial operator+(polynomial P1,polynomial P2)
         lp = P2.power;
         gp = P1.power;
         P3.C = new int [P3.power+1];
-        for(int k = lp ; k < gp ; k++)
+        for(int k = lp + 1; k <= gp ; k++)
         {
             P3.C[k] = P1.C[k];
         }
@@ -54,13 +56,14 @@ polynomial operator+(polynomial P1,polynomial P2)
         P3.power = P2.power; 
         lp = P1.power;
         gp = P2.power;
-        for(int k = lp ; k < gp ; k++)
+        P3.C = new int [P3.power+1];
+        for(int k = lp + 1 ; k <= gp ; k++)
         {
             P3.C[k] = P2.C[k];
         }
     }
     // Adding common terms
-    for(int j = 0 ; j < lp ;j++)
+    for(int j = 0 ; j <= lp ;j++)
     {
         P3.C[j] = P1.C[j] + P2.C[j] ;
     }
@@ -81,7 +84,7 @@ int main()
     cin >> pow1;
     int* Arr = new int[pow1+1];
     cout << "Enter terms of polynomial 1 : ";
-    for(int i = 0 ; i < pow1+1;i++)
+    for(int i = 0 ; i <= pow1;i++)
     {
         cin >> Arr[i];
     }
@@ -91,12 +94,11 @@ int main()
     cin >> pow2;
     int* Arr2 = new int[pow2+1];
     cout << "Enter terms of polynomial 2 : ";
-    for(int i = 0 ; i < pow1+1;i++)
+    for(int i = 0 ; i <= pow2 ; i++)
     {
         cin >> Arr2[i];
     }
-    polynomial P2(pow2,Arr2);
-
+    polynomial P2(pow2,Arr2); 
     polynomial P3 = P1 + P2 ;
     cout << "P1 : ";
     P1.show();

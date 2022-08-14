@@ -4,7 +4,7 @@ using namespace std;
 class Node
 {
     public:
-        int DATA = -99999;
+        int DATA ;
         Node* LEFT;
         Node* RIGHT;
 };
@@ -31,7 +31,7 @@ void Binary_tree::print(Node* S)
     if (S != 0)
     {
         print(S->LEFT);
-        cout << S->DATA<<"    ";
+        cout << S->DATA <<"    ";
         print(S->RIGHT);
     }
 }
@@ -120,7 +120,7 @@ void Binary_tree::insert(int ITEM)
             Root = NEW;
             return;
         }
-
+   
         // To traverse the Binary_tree
         Node* PTR = Root;
         // Find the location of the node to insert into
@@ -204,15 +204,13 @@ void Binary_tree::remove(int ITEM){
     {
         cout << e << '\n';
     }
-    
-
 }
+
 int main()
 {
-    //Node* ROOT = new Node;
+    Node* ROOT = new Node;
     Binary_tree T1 ;
-    /*
-    //T1.set_root(ROOT);
+    T1.set_root(ROOT);
     cout << "MENU : \n";
     cout << "1. INSERT\n";
     cout << "2. DELETE\n";
@@ -239,32 +237,6 @@ int main()
         else if(choice == 3){
             T1.print(T1.Root);
         }
-    } 
-    */
-    T1.insert(7);
-    T1.insert(10);
-    T1.insert(-2);
-    T1.insert(8);
-    T1.insert(3);
-    T1.insert(11);
-    T1.insert(-4);
-    T1.insert(4);
-    T1.insert(9);
-    T1.insert(12);
-    cout << "\ninorder : \n";
-    T1.print(T1.Root);
-    cout << "\npreorder : \n";
-    T1.preorder(T1.Root);
-    cout << "\npostorder : \n";
-    T1.postorder(T1.Root);
-
-    for(int i = 0 ; i < 2 ; i++)
-    {
-        cout << "\ndelete : ";
-        int el;
-        cin>>el;
-        T1.remove(el);
-        cout << "\n";
         cout << "\ninorder : \n";
         T1.print(T1.Root);
         cout << "\npreorder : \n";
@@ -272,5 +244,37 @@ int main()
         cout << "\npostorder : \n";
         T1.postorder(T1.Root);
     }
-    return 0;
-}
+} 
+
+    // T1.insert(7);
+    // T1.insert(10);
+    // T1.insert(-2);
+    // T1.insert(8);
+    // T1.insert(3);
+    // T1.insert(11);
+    // T1.insert(-4);
+    // T1.insert(4);
+    // T1.insert(9);
+    // T1.insert(12);
+    // cout << "\ninorder : \n";
+    // T1.print(T1.Root);
+    // cout << "\npreorder : \n";
+    // T1.preorder(T1.Root);
+    // cout << "\npostorder : \n";
+    // T1.postorder(T1.Root);
+    // for(int i = 0 ; i < 2 ; i++)
+    // {
+    //     cout << "\ndelete : ";
+    //     int el;
+    //     cin>>el;
+    //     T1.remove(el);
+    //     cout << "\n";
+    //     cout << "\ninorder : \n";
+    //     T1.print(T1.Root);
+    //     cout << "\npreorder : \n";
+    //     T1.preorder(T1.Root);
+    //     cout << "\npostorder : \n";
+    //     T1.postorder(T1.Root);
+    // }
+    // return 0;
+    //}

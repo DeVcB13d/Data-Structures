@@ -26,7 +26,7 @@ class Array
         void set_Data(int index,int D){
             DATA[index] = D;
         }
-        void QUICK(int BEG,int END,int LOC);
+        void QUICK(int BEG,int END,int& LOC);
         void QUICKSORT();
         void display();
 };
@@ -55,52 +55,64 @@ void get_array(int m,Array &A)
 
 
 
-void Array::QUICK(int BEG,int END,int LOC)
+void Array::QUICK(int BEG,int END,int& LOC)
 {
     int LEFT = BEG;
     int RIGHT = END;
     LOC = BEG;
-    while (true)
+    // Inner pass to check
+    int IP = 0;
+    while (RIGHT >= LEFT)
     {
         // Scanning from RIGHT TO LEFT
         while (DATA[LOC] <= DATA[RIGHT] && RIGHT!= BEG){
             RIGHT--;
         }
-        if(RIGHT==BEG){
+        if(RIGHT==BEG || RIGHT <= LEFT){
             return;
         }
         else if(DATA[LOC] > DATA[RIGHT]){
             int temp = DATA[LOC];
             DATA[LOC] = DATA[RIGHT];
-            DATA[RIGHT] = DATA[LOC];
+            DATA[RIGHT] = temp;
+            LOC = RIGHT;
+            RIGHT = RIGHT - 1 ;
         }
+        cout << "IP RL" << IP << " : ";
+        this->display();
+        IP++;
         // Scanning from LEFT to RIGHT
         while (DATA[LOC] >= DATA[LEFT] && LEFT != END){
             LEFT++;
         }
-        if(LEFT == END){
+        if(LEFT == END || RIGHT <= LEFT){
             return;
         }
         else if(DATA[LOC] < DATA[LEFT]){
             int temp = DATA[LOC];
-            DATA[LOC] = DATA[RIGHT];
-            DATA[RIGHT] = DATA[LOC];
+            DATA[LOC] = DATA[LEFT];
+            DATA[LEFT] = temp;
+            LOC = LEFT;
+            LEFT = LEFT + 1 ;
         }
+        cout << "IP LR" << IP << " : ";
+        this->display();
+        IP++;
     }
 }
 
 void Array::QUICKSORT()
 {
     int TOP = 0;
-    // Initialise UPPER and LOWER queues
+    // Initialise UPPER and LOWER stacks
     int* LOWER;
     int* UPPER;
     if (N > 1){
         LOWER = new int[N];
         UPPER = new int[N];
         TOP = 0;
-        LOWER[TOP] = 1;
-        UPPER[TOP] = N;
+        LOWER[TOP] = 0;
+        UPPER[TOP] = N-1;
     }
     int BEG,END,LOC;
     while (TOP != -1){
@@ -108,6 +120,9 @@ void Array::QUICKSORT()
         END = UPPER[TOP];
         TOP--;
         this->QUICK(BEG,END,LOC);
+        cout << "\nPASS " << this->PASS << " : ";
+        this->display();
+        PASS++;
         if (BEG < LOC-1){
             TOP++;
             LOWER[TOP] = BEG;
@@ -132,5 +147,6 @@ int main()
     A.display();
     cout << "After Sorting  : ";
     A.QUICKSORT();
+    A.display();
 }
 

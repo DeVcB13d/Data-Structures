@@ -88,7 +88,7 @@ int main()
     {
         std::cin>>Sin[k];
     }
-    Stack stk(Sin,Nels,10);
+    Stack stk(Sin,Nels,20);
     print(stk);
     std::cout << "MENU : \n1. PUSH\n2. POP\n3. EXIT\n";
     int choice = 0;

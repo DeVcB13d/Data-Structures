@@ -9,7 +9,6 @@ class Array
     public:
         int PASS = 0 ;
         int LOOPSTEPS = 0;
-        int SearchSteps = 0;
         Array(int maxn = 100){
             DATA = new int[100];
             MAXN = 100;
@@ -28,47 +27,45 @@ class Array
             DATA[index] = D;
         }
         void display();
-        friend void Merge(Array &A,int LBA,int EA,Array &B,int LBB,int EB,Array &C,int LBC);
+        friend void Merge(Array &A,int EA,int LBA,Array &B,int EB,int LBB,Array &C,int LBC);
         friend void MergePass(Array &A,int N,int L,Array &B);
         void MergeSort(); 
 };
-
+int LOOPSTEPS = 0;
 // Merge 2 sorted arrays A and B into a sorted array C
-void Merge(Array &Ar1,int LBA,int EA,Array &Br1,int LBB,int EB,Array &Cr1,int LBC){
-    // Elements in A and B
-    // C.DATA = new int[EA+EB];
-    // C.N = EA+EB;
+void Merge(Array &A,int EA,int LBA,Array &B,int EB,int LBB,Array &C,int LBC){
     // Pointers to the TOP of A,B and C
+    LOOPSTEPS++;
     int PTRA = LBA;
     int PTRB = LBB;
     int PTRC = LBC;
     // Upper bounds
-    int UBA = LBA + EA  ;
-    int UBB = LBB + EB  ;
+    int UBA = LBA + EA - 1  ;
+    int UBB = LBB + EB - 1  ;
     while (PTRA <= UBA && PTRB <= UBB){
         // Insert the shortest element to C
-        if (Ar1.DATA[PTRA] >= Br1.DATA[PTRB])
+        if (A.DATA[PTRA] < B.DATA[PTRB])
         {
-            Cr1.DATA[PTRC] = Br1.DATA[PTRB] ;
+            C.DATA[PTRC] = A.DATA[PTRA] ;
             PTRC++;
-            PTRB++;
+            PTRA++;
         }
         else
         {
-            Cr1.DATA[PTRC] = Ar1.DATA[PTRA] ;
-            PTRA++;
+            C.DATA[PTRC] = B.DATA[PTRB] ;
+            PTRB++;
             PTRC++;
         }
     }
     // Add the non exhausted list to C
     if (PTRA > UBA){
         for(int i = 0 ; i <= UBB - PTRB; i++){
-            Cr1.DATA[PTRC+i] =  Br1.DATA[PTRB+i];
+            C.DATA[PTRC+i] =  B.DATA[PTRB+i];
         }
     }
     else{
         for(int i = 0 ; i <= UBA - PTRA ; i++){
-            Cr1.DATA[PTRC+i] = Ar1.DATA[PTRA+i];
+            C.DATA[PTRC+i] = A.DATA[PTRA+i];
         }
     }   
    // A.display();
@@ -119,7 +116,9 @@ void Array::MergeSort(){
     // B.DATA = new int[N] ;
     B.N = N ;
     while (L < N){
+        PASS++;
         MergePass(*this,N-1,L,B);
+        PASS++;
         MergePass(B,N-1,2*L,*this);
         L = 4 * L ;
     }
@@ -162,5 +161,5 @@ int main()
     cout << "After sorting : ";
     A1.display();
     cout << "PASSES : " << A1.PASS << endl ;
-    cout << "STEPS : " << A1.LOOPSTEPS << endl ;
+    cout << "STEPS : " << LOOPSTEPS << endl ;
 }

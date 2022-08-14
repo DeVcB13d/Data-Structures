@@ -2,37 +2,33 @@
 // (or largest) element column-wise in a matrix
 
 #include<iostream>
-const int tmax = 10;
 
-int saddle_point(int M[tmax][tmax],int R,int C)
+int saddle_point(int** M,int R,int C)
 {
-    //Finding the smallest in each row
+    
+    // Finding the smallest in each row
     for(int i = 0 ; i < R ; i++)
     {
+        int s_col = 0 ;
         // Set the smallest element to the First element of the row    
-        int sl = M[i][0] ;
-        int s_col = 0 ; 
+        int s_element = M[i][0] ; 
         // Traversing the ith row
         for(int j = 0 ; j < C ; j++)
         {
-            if (M[i][j] < sl)
+            if (M[i][j] < s_element)
             {
-                sl = M[i][j];
+                s_element = M[i][j];
                 s_col = j;
             } 
         }
         //Check if the smallest element is the largest in the column
-        int k;
-        for(k = 0 ; k < R ; k++)
+        int k = 0;
+        while (k < R && M[k][s_col] <= s_element)
         {
-            if (M[k][s_col] > sl)
-            {
-                // Exit for loop
-                k = R ;
-            }
+            k = k + 1 ;
         }
         //If loop is not exited the k < R
-        if (k < R)
+        if (k == R - 1)
         {
             return M[k][s_col] ; 
         }
@@ -42,8 +38,23 @@ int saddle_point(int M[tmax][tmax],int R,int C)
 
 int main()
 {
-    int mat[tmax][tmax] = {{1,2,3},{4,5,6},{7,8,9}} ;
-    int s_point = saddle_point(mat,3,3) ;
+    int uin_rows,uin_cols;
+    std::cout << "Enter the rows and colums : ";
+    std::cin >> uin_rows >> uin_cols;
+    // Dynamically allocate rows for in_mat
+    int** in_mat = new int*[uin_rows];
+    std::cout << "Enter the matrix : \n"; 
+    for(int i = 0 ; i < uin_rows ; i++)
+    {
+        // Allocating columns
+        in_mat[i] = new int[uin_cols];
+        for(int k = 0 ; k < uin_cols ; k++)
+        {
+            std::cin >> in_mat[i][k] ;
+        }
+    }
+
+    int s_point = saddle_point(in_mat,uin_rows,uin_cols) ;
     if (s_point != -1)
     {
         std::cout << "Saddle point at : " << s_point ;
