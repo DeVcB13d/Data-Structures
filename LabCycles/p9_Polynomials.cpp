@@ -5,101 +5,125 @@ using namespace std;
 
 class polynomial
 {
-    // Array of coefficients
-    // in tHe increasing power order of coefficient
-    int* C; 
-    int power;
+    // 2D Array of coefficients
+    // Column 0 -> Power of X
+    // Column 1 -> Coefficient of X
+    int** P; 
+    int Rows;
     public:
         polynomial(){}
-        polynomial(int pow,int* Arr)
+        polynomial(int Row)
         {
-            power = pow;
-            // power + 1 constant
-            C = new int [power+1];
-            for(int i = 0 ; i <= pow ; i++)
+            Rows = Row ;
+            P = new int* [Rows];
+            for (int i = 0 ; i <= Rows ; i++)
             {
-                C[i] = Arr[i];
+                P[i] = new int[2];
             }
         }
-        polynomial(polynomial &P)
-        {
-            power = P.power;
-            // power + 1 constant
-            C = new int [power+1];
-            for(int i = 0 ; i <= power ; i++)
-            {
-                C[i] = P.C[i];
-            }
-        }
+        // polynomial(polynomial &N)
+        // {
+        //     Rows = N.Rows;
+        //     P = new int* [N.Rows];
+        //     for(int i = 0 ; i <= N.Rows ; i++)
+        //     {
+        //         P[i] = new int[2];
+        //         P[i][0] = N.P[i][0];
+        //         P[i][1] = N.P[i][1];
+        //     }
+        // }
+        void get_input();
         friend polynomial operator+(polynomial,polynomial);
         void show();
 };
 
+void polynomial::get_input()
+{
+    // Input the entries of the matrix
+    // Column 0 -> Power of X
+    // Column 1 -> Coefficient of X
+    cout << "Enter " << Rows << " entries : \n";
+    for(int r = 0 ; r <= Rows ; r++)
+    {
+        for(int c = 0 ; c < 2 ; c++)
+        {
+            cin >> P[r][c];
+        }
+    }
+}
+
 polynomial operator+(polynomial P1,polynomial P2)
 {
     polynomial P3;
-    // lower power,greater power
-    int lp,gp;
-    // Set power of output to larger polynomial
-    if (P1.power > P2.power)
-    {
-        P3.power = P1.power;
-        lp = P2.power;
-        gp = P1.power;
-        P3.C = new int [P3.power+1];
-        for(int k = lp + 1; k <= gp ; k++)
-        {
-            P3.C[k] = P1.C[k];
+    // Allocating memory for P3
+    P3.P = new int*[P1.Rows + P2.Rows];
+    for(int j = 0 ; j < P1.Rows + P2.Rows ; j++ ){
+        P3.P[j] = new int[2];
+    }
+    // Declaring an variable to point to the index of P1,P2 and P3 respectively
+    int ptr1 = 0 ;int ptr2 = 0 ; int ptr3 = 0; 
+    while (ptr1 <= P1.Rows and ptr2 <= P2.Rows){
+        if (P1.P[ptr1][0] > P2.P[ptr2][0]){
+            P3.P[ptr3][0] = P2.P[ptr2][0];
+            P3.P[ptr3][1] = P2.P[ptr2][1];
+            ptr2++;ptr3++;
+        }      
+        else if (P1.P[ptr1][0] < P2.P[ptr2][0]){
+            P3.P[ptr3][0] = P1.P[ptr1][0];
+            P3.P[ptr3][1] = P1.P[ptr1][1];
+            ptr1++;ptr3++;
+        }   
+        else{
+            P3.P[ptr3][0] = P2.P[ptr2][0];
+            P3.P[ptr3][1] = P1.P[ptr1][1] + P2.P[ptr2][1];
+            ptr1++;ptr2++;ptr3++;
+        } 
+        //cout << P3.P[ptr3][0] << " " << P3.P[ptr3][1] << "\n";
+    }
+
+    if (ptr1 < P1.Rows){
+        while (ptr1 <= P1.Rows){
+            P3.P[ptr3][0] = P1.P[ptr1][0];
+            P3.P[ptr3][1] = P1.P[ptr1][1];
+            ptr1++;ptr3++;
         }
     }
     else{
-        P3.power = P2.power; 
-        lp = P1.power;
-        gp = P2.power;
-        P3.C = new int [P3.power+1];
-        for(int k = lp + 1 ; k <= gp ; k++)
-        {
-            P3.C[k] = P2.C[k];
+        while (ptr2 <= P2.Rows){
+            P3.P[ptr3][0] = P2.P[ptr2][0];
+            P3.P[ptr3][1] = P2.P[ptr2][1];
+            ptr2++;ptr3++;
         }
     }
-    // Adding common terms
-    for(int j = 0 ; j <= lp ;j++)
-    {
-        P3.C[j] = P1.C[j] + P2.C[j] ;
-    }
+    P3.Rows = ptr3;
     return P3;
 }
 
 void polynomial::show()
 {
-    for(int i = 0 ; i < power+1 ; i++){
-        cout << C[i] << "X^" << i << " + ";
+    int i; 
+    for(i = 0 ; i < Rows ; i++){
+        cout << P[i][1] << "X^" << P[i][0] << " + ";
     }
-    cout << "\n";
+    cout << P[i][1] << "X^" << P[i][0] << "\n";
 }
+
 int main()
 {
-    int pow1;
-    cout << "Power of polynomial 1 : ";
-    cin >> pow1;
-    int* Arr = new int[pow1+1];
-    cout << "Enter terms of polynomial 1 : ";
-    for(int i = 0 ; i <= pow1;i++)
-    {
-        cin >> Arr[i];
-    }
-    polynomial P1(pow1,Arr);
-    int pow2;
-    cout << "Power of polynomial 2 : ";
-    cin >> pow2;
-    int* Arr2 = new int[pow2+1];
-    cout << "Enter terms of polynomial 2 : ";
-    for(int i = 0 ; i <= pow2 ; i++)
-    {
-        cin >> Arr2[i];
-    }
-    polynomial P2(pow2,Arr2); 
-    polynomial P3 = P1 + P2 ;
+    int T1;
+    cout << "Terms of polynomial 1 : ";
+    cin >> T1;
+    cout << "Enter power and coefficient of polynomial 1 (ascending): \n";
+    polynomial P1(T1);
+    P1.get_input();
+    int T2;
+    cout << "Terms of polynomial 2 : ";
+    cin >> T2;
+    cout << "Enter power and coefficient of polynomial 2 (ascending): \n";
+    polynomial P2(T2);
+    P2.get_input();
+    polynomial P3;
+    P3 = P1 + P2 ;
     cout << "P1 : ";
     P1.show();
     cout << "P2 : ";

@@ -5,7 +5,7 @@ class Node
 {
     public:
         int data;
-        Node* ptr;
+        void* ptr;
 };
 
 class Header
@@ -17,7 +17,7 @@ class Header
 
 class Linked_list
 {
-    void* Start;
+    Header* Start;
     public:
         void input_list(Node*,int);
         void traverse(void);
@@ -25,7 +25,17 @@ class Linked_list
         void Delete(int el); 
 };
 
+void Linked_list::insert(int el)
+{
+    if ()
+}
+
 void Linked_list::input_list(Node* Nptr,int num)
 {
-    
+    int elem ;
+    cout << "Enter " << num << " elements : \n";
+    for(int i = 0 ; i < num ; i++ ){
+        cin >> elem ;
+        this->insert(elem);
+    }
 }

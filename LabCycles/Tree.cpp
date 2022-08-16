@@ -120,7 +120,6 @@ void Binary_tree::insert(int ITEM)
             Root = NEW;
             return;
         }
-   
         // To traverse the Binary_tree
         Node* PTR = Root;
         // Find the location of the node to insert into
@@ -209,6 +208,7 @@ void Binary_tree::remove(int ITEM){
 int main()
 {
     Node* ROOT = new Node;
+    ROOT->DATA = 0;
     Binary_tree T1 ;
     T1.set_root(ROOT);
     cout << "MENU : \n";
@@ -223,16 +223,22 @@ int main()
             int el;
             cout << "\nElement to insert : ";
             cin >> el;
-            T1.insert(el);
-            T1.print(T1.Root);
+            if(ROOT->DATA == 0){
+                ROOT->DATA = el;
+                ROOT->LEFT = 0;
+                ROOT->RIGHT = 0;
+            }
+            else
+                T1.insert(el);
+            // T1.print(T1.Root);
         }
         else if(choice == 2){
             cout << "\nElement to delete : ";
             int el;
             cin>>el;
             T1.remove(el);
-            cout << "\n";
-            T1.print(T1.Root);
+            // cout << "\n";
+            // T1.print(T1.Root);
         }
         else if(choice == 3){
             T1.print(T1.Root);
@@ -277,4 +283,4 @@ int main()
     //     T1.postorder(T1.Root);
     // }
     // return 0;
-    //}
+    // }

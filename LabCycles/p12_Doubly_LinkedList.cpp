@@ -13,9 +13,39 @@ class Node
 
 class double_Linked_List
 {
+    Node* Start = NULL;
     public:
-        Node* Start;
         void search(int ITEM);
         void insert(int ITEM);
         void remove(int ITEM);
 };
+
+void double_Linked_List::insert(int ITEM)
+{
+    // Assuming to insert into a sorted linked list(ascending)
+    Node* ptr = Start;
+    while(ptr != 0 or ptr->DATA < ITEM)
+    {
+        ptr = ptr->FORW;
+    }
+    try
+    {
+        Node* NEW = new Node;
+        if(NEW == NULL){
+            throw "MEMORY NOT ALLOCATED\n";
+        }
+        NEW->DATA = ITEM ;
+        if (Start == NULL)
+        {
+            Start = NEW;
+            Start->BACK = NEW;
+            Start->FORW = Start;
+        }
+    }
+    catch(const char*& e)
+    {
+        cout << e << '\n';
+    }
+    
+
+}

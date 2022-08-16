@@ -19,33 +19,38 @@ void generate_Magic_square(int N)
             M[i][j] = 0;
         }
     }
-
-    int num;
-    int row = N/2 ;
-    int col = N - 1 ;
-    for(num = 1 ; num <=(N*N);)
+    // Initial positions
+    int i = N / 2;
+    int j = N - 1;
+    for (int num = 1; num <= N * N;) 
     {
-        if (row == -1 && col != N){
-            row = N - 1 ;  
-        }
-        else if (col == N && row != -1){
-            col = 0 ;
-        }
-        else if (col == N && row == -1){
-            col = N - 2 ;
-            row = 0 ;
-        }
-        if (M[row][col] != 0)
+        if (i == -1 && j == N) 
         {
-            col = col - 2;
-            row = row + 1;
+            j = N - 2;
+            i = 0;
         }
-        else{
-            M[row][col] = num ; 
+        else 
+        {
+            if (i < 0){
+                i = N - 1;
+            }
+            if (j == N){
+                j = 0;
+            }
+        }
+        if (M[i][j] != 0) 
+        {
+            i++;
+            j = j - 2;
+            continue;
+        }
+        else
+        {
             num++;
+            M[i][j] = num; 
         }
-        row = row - 1 ;
-        col = col + 1 ;
+        j++;
+        i--; 
     }
     for(int l = 0 ; l < N ; l++ ){
         for(int m = 0 ; m < N ; m++){
