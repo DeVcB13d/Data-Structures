@@ -42,7 +42,7 @@ class Linked_list
         // Insertion is assumed to be into a sorted List
         Node* find(int ITEM); 
         void insert(int ITEM);
-        friend Node* Merge(Linked_list L1, Linked_list L2);
+        friend Linked_list Merge(Linked_list L1, Linked_list L2);
         int remove(Node* LOC,Node* LOCP);
         void find_del(int ITEM,Node* &LOC,Node* &LOCP);
         void remove(int ITEM);
@@ -237,7 +237,7 @@ void Linked_list::remove(int ITEM)
 }
 
 
-Node* Merge(Linked_list L1, Linked_list L2)
+Linked_list Merge(Linked_list L1, Linked_list L2)
 {
     Linked_list L_ret;
     Node* ptr1 = L1.Start;
@@ -245,6 +245,8 @@ Node* Merge(Linked_list L1, Linked_list L2)
     Node *ptr3,*Save;
     // Ptr3 points to the first Node
     ptr3 = new Node();
+    //Node* New_Start = new Node();
+    //New_Start->set_link(ptr3);
     // Initialising the next node of the overall
     // Sorted List and Storing its pointer in Save
     Node* NextNode = new Node();
@@ -259,15 +261,15 @@ Node* Merge(Linked_list L1, Linked_list L2)
         if (ptr1->info() > ptr2->info()){
             ptr3->set_link(Save);
             ptr3->set_Data(ptr2->info());
-            cout << "C1 : " << ptr1->info() << " " << ptr2->info() << endl;
-            cout << "L : " << ptr3 ->info();
+            //cout << "C1 : " << ptr1->info() << " " << ptr2->info() << endl;
+            //cout << "L : " << ptr3 ->info();
             ptr2 = ptr2->link(); 
         }
         else{
             ptr3->set_link(Save);
             ptr3->set_Data(ptr1->info());
-            cout << "C2 : " << ptr1->info() << " " << ptr2->info() << endl;
-            cout << "L : " << ptr3 ->info();
+            //cout << "C2 : " << ptr1->info() << " " << ptr2->info() << endl;
+            //cout << "L : " << ptr3 ->info();
             ptr1 = ptr1->link();
         }
         Node* NextNode = new Node;
@@ -294,59 +296,59 @@ Node* Merge(Linked_list L1, Linked_list L2)
             ptr1 = ptr1->link();
         }
     }
-    return ptr3;
+    return L_ret;
 }
 
 int main()
 {
-    // int num;
-    // cout << "Enter the number of elements in the list : ";
-    // cin >> num;
-    // Linked_list L1,L2;
+    int num;
+    cout << "Enter the number of elements in the list : ";
+    cin >> num;
+    Linked_list L1,L2;
     
-    // // Creating a starting node and setting it as start
-    // Node *Nptr = new Node;
-    // L1.set_start(*Nptr);
-    // // Inputting the Linked List
-    // cout << "Enter " << num << " elements : " ;
-    // int el;
-    // for(int i = 0 ; i < num ; i++){
-    //     cin >> el ;
-    //     // Dynamically allocating a new Node
-    //     Node* new_Node = new Node; 
-    //     // Setting the Data and Pointer to new_node
-    //     // to its previous node
-    //     (*Nptr).set_Data(el);
-    //     (*Nptr).set_link(new_Node);
-    //     // Setting the Node pointer to new_Node
-    //     Nptr = new_Node;
-    // }
-    // // Setting the pointer of last element as 0
-    // (*Nptr).set_link(0);
-    // cout << "MENU : \n";
-    // cout << "1. Insert\n";
-    // cout << "2. Delete\n";
-    // cout << "3. Merge 2 sorted arrays\n";
-    // cout << "4. Exit\n";
-    // int choice = 0;
-    // while(choice != 4)
-    // {
-    //     cout << "Choose an option : ";
-    //     cin >> choice ;
-    //     if (choice == 1)
-    //     {
-    //         cout << "Enter an Element to insert : " ;cin >> el;
-    //         L1.insert(el);
-    //         L1.traverse();
-    //     }
-    //     else if (choice == 2)
-    //     {
-    //         cout << "Enter an element to delete : ";cin >> el;
-    //         L1.remove(el);
-    //         L1.traverse();
-    //     }
-    //     else if (choice == 3)
-    //     {
+    // Creating a starting node and setting it as start
+    Node *Nptr = new Node;
+    L1.set_start(*Nptr);
+    // Inputting the Linked List
+    cout << "Enter " << num << " elements : " ;
+    int el;
+    for(int i = 0 ; i < num ; i++){
+        cin >> el ;
+        // Dynamically allocating a new Node
+        Node* new_Node = new Node; 
+        // Setting the Data and Pointer to new_node
+        // to its previous node
+        (*Nptr).set_Data(el);
+        (*Nptr).set_link(new_Node);
+        // Setting the Node pointer to new_Node
+        Nptr = new_Node;
+    }
+    // Setting the pointer of last element as 0
+    (*Nptr).set_link(0);
+    cout << "MENU : \n";
+    cout << "1. Insert\n";
+    cout << "2. Delete\n";
+    cout << "3. Merge 2 sorted arrays\n";
+    cout << "4. Exit\n";
+    int choice = 0;
+    while(choice != 4)
+    {
+        cout << "Choose an option : ";
+        cin >> choice ;
+        if (choice == 1)
+        {
+            cout << "Enter an Element to insert : " ;cin >> el;
+            L1.insert(el);
+            L1.traverse();
+        }
+        else if (choice == 2)
+        {
+            cout << "Enter an element to delete : ";cin >> el;
+            L1.remove(el);
+            L1.traverse();
+        }
+        else if (choice == 3)
+        {
             Linked_list L3,L4;
             int len3,len4;
             cout << "Enter number of elements in both : ";
@@ -356,6 +358,7 @@ int main()
             L3.set_start(*Nptr1);
             L4.set_start(*Nptr2);
             int el;
+            // Inputting the sorted elements for L1
             cout << "Enter " << len3 << " elements : " ;
             for(int i = 0 ; i < len3 ; i++){
                 cin >> el ;
@@ -365,6 +368,7 @@ int main()
                 Nptr1 = new_Node;
             }
             Nptr1->set_link(0);
+            // Inputting sorted elemnts for L2
             cout << "Enter " << len4 << " elements : ";
             for(int i = 0 ; i < len4 ; i++){
                 cin >> el ;
@@ -374,9 +378,7 @@ int main()
                 Nptr2 = new_Node;
             }
             Nptr2->set_link(0);
-            Node* L = Merge(L3,L4);
-            Linked_list L5;
-            L5.set_start(*L);
+            Linked_list L5 = Merge(L3,L4);
             cout << "INPUTS : \n" ;
             cout << "L1 : ";
             L3.traverse();
@@ -384,7 +386,7 @@ int main()
             L4.traverse();
             cout << "Merged : ";
             L5.traverse();
-        //}
-    //}
+        }
+    }
     return 0;
 }

@@ -64,6 +64,10 @@ void print(polynomial &p)
 
 polynomial operator+(polynomial P1,polynomial P2)
 {
+    Pterm* ptr1,ptr2,ptr3;
+    ptr1 = P1.start;
+    ptr2 = P2.start
+    polynomial P3
 
 }
 

@@ -136,8 +136,7 @@ void Array::QUICKSORT()
     }
 }
 
-int main()
-{
+int main(){
     Array A(100);
     int Nels;
     cout << "Elements in Array : ";

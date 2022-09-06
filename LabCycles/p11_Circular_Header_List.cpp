@@ -17,8 +17,16 @@ class Header
 
 class Linked_list
 {
-    Header* Start;
+    void* Start;
     public:
+        Linked_list(){}
+        Linked_list(int size)
+        {
+            Header* H = new Header;
+            H->size = size;
+            Start = H ;
+            H->Next = 0;
+        }
         void input_list(Node*,int);
         void traverse(void);
         void insert(int el);
@@ -27,7 +35,10 @@ class Linked_list
 
 void Linked_list::insert(int el)
 {
-    if ()
+    if (Start == 0)
+    {
+        
+    }
 }
 
 void Linked_list::input_list(Node* Nptr,int num)

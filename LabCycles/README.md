@@ -21,7 +21,8 @@
 9. Add 2 polynomials using array
 
 # II Linked Lists
-10. Implementation of linked list - 
+
+10. Implementation of linked list -
     * Traversal 
     * Search elements - Sorted and Unsorted
     * Insertion into sorted LL

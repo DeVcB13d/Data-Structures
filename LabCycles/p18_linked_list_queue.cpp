@@ -21,11 +21,12 @@ class LinkedList_queue
 void print(LinkedList_queue &L)
 {
     Node* PTR = L.FRONT;
-    while(PTR->link != 0)
+    while(PTR != 0)
     {
         cout << PTR->DATA << " ";
         PTR = PTR -> link ;
     }
+    cout << "\n";
 }
 
 void LinkedList_queue::llq_insert(int item)
@@ -47,6 +48,7 @@ void LinkedList_queue::llq_insert(int item)
         else
         {
             REAR->link = NEW;
+            REAR = NEW ; 
             NEW->link = 0;
         }
     }
@@ -60,13 +62,49 @@ int LinkedList_queue::llq_delete()
 {
     try
     {
-        if(FRONT == 0)
+        if(FRONT == REAR)
         {
             throw "UNDERFLOW";
         }
+        Node* TEMP = FRONT ;
+        int ITEM = FRONT->DATA ;
+        FRONT = FRONT->link ;
+        TEMP->link = 0 ;
+        delete TEMP ;
+        return ITEM ; 
     }
     catch(const char* &e)
     {
-        std::cout << e << '\n';
+        cout << e << '\n';
     }
+}
+
+// Implementation
+int main()
+{
+    LinkedList_queue LLQ ;
+    std::cout << "MENU : \n1. PUSH\n2. POP\n3. EXIT\n";
+    int choice = 0;
+    while(choice != 3)
+    {
+        std::cout << "Select option : ";
+        std::cin >> choice ;
+        if (choice == 1){
+            int el;
+            std::cout << "Input element : ";
+            std::cin>>el;
+            LLQ.llq_insert(el);
+        }
+        else if(choice==2){
+            int ITEM = LLQ.llq_delete();
+            std::cout << ITEM << " removed\n";
+        }
+        else if(choice==3)
+        {
+            std::cout<<"Exiting...\n";
+        }
+        std::cout << "Output : "; 
+        print(LLQ);
+    }
+    return 0;
 }
